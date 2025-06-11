@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -83,14 +84,7 @@ WSGI_APPLICATION = "srebrna_backend.wsgi.application"
 
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": "db.cbiaakcktuvbdpnvysjt.supabase.co",
-        "PORT": "5432",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": os.getenv("SUPABASE_DB_PASSWORD"),
-    }
+    "default": dj_database_url.parse(os.getenv("SUPABASE_DB_URL"), conn_max_age=600)
 }
 
 

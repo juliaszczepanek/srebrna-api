@@ -81,11 +81,18 @@ WSGI_APPLICATION = "srebrna_backend.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-print(">>> SUPABASE_DB_URL raw:", os.getenv("SUPABASE_DB_URL"))
-DATABASES = {
-    "default": dj_database_url.parse(os.getenv("SUPABASE_DB_URL"), conn_max_age=600)
-}
+db_url = os.getenv("SUPABASE_DB_URL")
+if db_url:
+    # Produkcyjnie (Render + Supabase)
+    DATABASES = {"default": dj_database_url.parse(db_url, conn_max_age=600)}
+else:
+    # Lokalnie (SQLite)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation

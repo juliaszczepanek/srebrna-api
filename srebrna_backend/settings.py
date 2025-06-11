@@ -82,7 +82,7 @@ WSGI_APPLICATION = "srebrna_backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
+print(">>> SUPABASE_DB_URL raw:", os.getenv("SUPABASE_DB_URL"))
 DATABASES = {
     "default": dj_database_url.parse(os.getenv("SUPABASE_DB_URL"), conn_max_age=600)
 }
